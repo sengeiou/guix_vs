@@ -1,0 +1,3 @@
+[submodule "lib/guix"]
+	path = lib/guix
+	url = https://github.com/azure-rtos/guix.git
