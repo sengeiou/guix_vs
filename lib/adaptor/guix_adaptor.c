@@ -359,8 +359,8 @@ static void guix_exit_sync(void)
         os->mutex = NULL;
     }
 
-    free(os);
     guix_os = NULL;
+    free(os);
 }
 
 VOID gx_generic_rtos_initialize(VOID)
