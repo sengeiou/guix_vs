@@ -1,0 +1,2 @@
+D:\Azure_RTOS\GUIX_Studio_6.0\examples\demo_guix_smart_watch\build\vs_2019\Debug\demo_guix_smart_watch.exe
+D:\Azure_RTOS\GUIX_Studio_6.0\examples\demo_guix_smart_watch\build\vs_2019\Debug\demo_guix_smart_watch.pdb
