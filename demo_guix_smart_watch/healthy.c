@@ -172,7 +172,7 @@ VOID ekg_canvas_map_create()
     ekg_map.gx_pixelmap_data_size = EKG_MAP_WIDTH * EKG_MAP_HEIGHT * sizeof(GX_COLOR);
     ekg_map.gx_pixelmap_height = EKG_MAP_HEIGHT;
     ekg_map.gx_pixelmap_width = EKG_MAP_WIDTH;
-    ekg_map.gx_pixelmap_format = GX_COLOR_FORMAT_24XRGB;
+    ekg_map.gx_pixelmap_format = MAIN_SCREEN_COLOR_FORMAT;
 
     memset(&ekg_canvas, 0, sizeof(GX_CANVAS));
 
