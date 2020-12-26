@@ -47,6 +47,7 @@ struct guix_os {
     SDL_mutex* mutex;
     SDL_TimerID timer;
     VOID(*entry)(ULONG);
+    bool timer_actived;
     struct guix_event event[0];
 };
 
@@ -500,15 +501,23 @@ VOID gx_generic_event_purge(GX_WIDGET *target)
 VOID gx_generic_timer_start(VOID)
 {
     struct guix_os *os = guix_os;
-    os->timer = SDL_AddTimer(GX_SYSTEM_TIMER_MS,
-        guix_os_timer, NULL);
+
+    if (!os->timer_actived) {
+        os->timer_actived = true;
+        os->timer = SDL_AddTimer(GX_SYSTEM_TIMER_MS,
+            guix_os_timer, NULL);
+    }
 }
 
 VOID gx_generic_timer_stop(VOID)
 {
     struct guix_os *os = guix_os;
-    SDL_RemoveTimer(os->timer);
-    os->timer = 0;
+
+    if (os->timer_actived) {
+        os->timer_actived = false;
+        SDL_RemoveTimer(os->timer);
+        os->timer = 0;
+    }
 }
 
 VOID gx_generic_system_mutex_lock(VOID)
