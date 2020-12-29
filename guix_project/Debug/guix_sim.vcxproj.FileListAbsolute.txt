@@ -1,2 +1,0 @@
-D:\CodeStore\guix_vs\guix_project\Debug\guix_sim.exe
-D:\CodeStore\guix_vs\guix_project\Debug\guix_sim.pdb
