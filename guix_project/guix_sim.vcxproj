@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GX_DISABLE_THREADX_BINDING;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\lib\SDL2\include;..\demo_guix_smart_watch;..\lib\adaptor;..\lib\guix\common\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\lib;..\lib\SDL2\include;..\demo_guix_smart_watch;..\lib\adaptor;..\lib\guix\common\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -160,6 +160,7 @@
     <ClCompile Include="..\demo_guix_smart_watch\keyboard.c" />
     <ClCompile Include="..\demo_guix_smart_watch\map.c" />
     <ClCompile Include="..\demo_guix_smart_watch\message.c" />
+    <ClCompile Include="..\demo_guix_smart_watch\qrcode.c" />
     <ClCompile Include="..\demo_guix_smart_watch\settings.c" />
     <ClCompile Include="..\demo_guix_smart_watch\stopwatch.c" />
     <ClCompile Include="..\demo_guix_smart_watch\weather.c" />
@@ -1390,6 +1391,7 @@
     <ClCompile Include="..\lib\guix\common\src\gx_window_view_update_detect.c" />
     <ClCompile Include="..\lib\guix\common\src\gx_window_wallpaper_get.c" />
     <ClCompile Include="..\lib\guix\common\src\gx_window_wallpaper_set.c" />
+    <ClCompile Include="..\lib\qrcode\qrcodegen.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\demo_guix_smart_watch\custom_checkbox.h" />

@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.0.2.0                                               */
-/*  Date (dd.mm.yyyy): 21.12.2020   Time (hh:mm): 10:27                        */
+/*  Date (dd.mm.yyyy): 29.12.2020   Time (hh:mm): 15:57                        */
 /*******************************************************************************/
 
 
@@ -16,6 +16,7 @@
 #include "guix_smart_watch_specifications.h"
 
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
+QRCODE_CONTROL_BLOCK qrcode;
 SETTINGS_LANGUAGE_CONTROL_BLOCK settings_language;
 MAP_SCREEN_CONTROL_BLOCK map_screen;
 CLOCK_ADD_SCREEN_CONTROL_BLOCK clock_add_screen;
@@ -73,6 +74,24 @@ GX_STUDIO_DISPLAY_INFO guix_smart_watch_display_table[1] =
     }
 };
 
+
+UINT gx_studio_text_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
+{
+    UINT status;
+    GX_TEXT_BUTTON *button = (GX_TEXT_BUTTON *) control_block;
+    GX_TEXT_BUTTON_PROPERTIES *props = (GX_TEXT_BUTTON_PROPERTIES *) info->properties;
+    status = gx_text_button_create(button, info->widget_name, parent, props->string_id, info->style, info->widget_id, &info->size);
+    if (status == GX_SUCCESS)
+    {
+        gx_text_button_font_set(button, props->font_id);
+#if defined(GUIX_5_4_0_COMPATIBILITY)
+        gx_text_button_text_color_set(button, props->normal_text_color_id, props->selected_text_color_id);
+#else
+        gx_text_button_text_color_set(button, props->normal_text_color_id, props->selected_text_color_id, props->disabled_text_color_id);
+#endif
+    }
+    return status;
+}
 
 UINT gx_studio_radio_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
 {
@@ -3562,6 +3581,38 @@ GX_PIXELMAP_BUTTON_PROPERTIES menu_window_3_settings_properties =
     GX_PIXELMAP_ID_SETTINGS_PUSHED,          /* selected pixelmap id           */
     0                                        /* disabled pixelmap id           */
 };
+GX_TEXT_BUTTON_PROPERTIES menu_window_3_QR_properties =
+{
+    GX_STRING_ID_STRING_4,                   /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET menu_window_3_QR_define =
+{
+    "QR",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    ID_QR,                                   /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_RAISED|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {332, 337, 386, 389},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MENU_WINDOW_3_CONTROL_BLOCK, menu_window_3_QR), /* control block  */
+    (void *) &menu_window_3_QR_properties    /* extended properties            */
+};
 
 GX_CONST GX_STUDIO_WIDGET menu_window_3_settings_define =
 {
@@ -3580,8 +3631,8 @@ GX_CONST GX_STUDIO_WIDGET menu_window_3_settings_define =
     gx_studio_pixelmap_button_create,        /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {259, 337, 313, 389},                    /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    {262, 337, 316, 389},                    /* widget size                    */
+    &menu_window_3_QR_define,                /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MENU_WINDOW_3_CONTROL_BLOCK, menu_window_3_settings), /* control block */
     (void *) &menu_window_3_settings_properties /* extended properties         */
@@ -3781,6 +3832,36 @@ GX_CONST GX_STUDIO_WIDGET menu_window_2_define =
     &menu_window_2_games_define,             /* child widget                   */
     0,                                       /* control block                  */
     (void *) &menu_window_2_properties       /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES qrcode_properties =
+{
+    &template_main_define,                   /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {182, 83, 456, 395}                      /* widget size                    */
+};
+
+GX_CONST GX_STUDIO_WIDGET qrcode_define =
+{
+    "qrcode",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_DRAW_SELECTED,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(QRCODE_CONTROL_BLOCK),            /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_WINDOW_FILL,                 /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    (VOID (*)(GX_WIDGET *)) qr_window_draw,  /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) template_main_event_handler, /* event function override */
+    {182, 83, 456, 395},                     /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    GX_NULL,                                 /* child widget                   */
+    0,                                       /* control block                  */
+    (void *) &qrcode_properties              /* extended properties            */
 };
 GX_TEMPLATE_PROPERTIES clock_add_screen_properties =
 {
@@ -8682,6 +8763,7 @@ GX_CONST GX_STUDIO_WIDGET calculator_screen_define =
 };
 GX_CONST GX_STUDIO_WIDGET_ENTRY guix_smart_watch_widget_table[] =
 {
+    { &qrcode_define, (GX_WIDGET *) &qrcode },
     { &settings_language_define, (GX_WIDGET *) &settings_language },
     { &map_screen_define, (GX_WIDGET *) &map_screen },
     { &clock_add_screen_define, (GX_WIDGET *) &clock_add_screen },

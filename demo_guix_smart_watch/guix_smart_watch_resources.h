@@ -6,7 +6,7 @@
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
 /*  GUIX Studio Revision 6.0.2.0                                               */
-/*  Date (dd.mm.yyyy): 21.12.2020   Time (hh:mm): 10:27                        */
+/*  Date (dd.mm.yyyy): 29.12.2020   Time (hh:mm): 15:57                        */
 /*******************************************************************************/
 
 
@@ -242,6 +242,8 @@
 #define GX_STRING_ID_CHICAGO 68
 #define GX_STRING_ID_LONDON 69
 #define GX_STRING_ID_MOSCOW 70
-#define MAIN_SCREEN_STRING_TABLE_SIZE 71
+#define GX_STRING_ID_STRING_2 71
+#define GX_STRING_ID_STRING_4 72
+#define MAIN_SCREEN_STRING_TABLE_SIZE 73
 
 #endif                                       /* sentry                         */

@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.0.2.0                                               */
-/*  Date (dd.mm.yyyy): 21.12.2020   Time (hh:mm): 10:27                        */
+/*  Date (dd.mm.yyyy): 29.12.2020   Time (hh:mm): 15:57                        */
 /*******************************************************************************/
 
 
@@ -90,10 +90,11 @@ extern   "C" {
 #define ID_CALCULATOR_0 66
 #define ID_MAP 67
 #define ID_SETTINGS 68
-#define ID_GAMES 69
-#define ID_CLOCK 70
-#define ID_CONTACTS 71
-#define ID_ABOUT 72
+#define ID_QR 69
+#define ID_GAMES 70
+#define ID_CLOCK 71
+#define ID_CONTACTS 72
+#define ID_ABOUT 73
 
 
 /* Define animation ids                                                        */
@@ -137,6 +138,15 @@ typedef struct
     GX_CONST GX_STUDIO_WIDGET *widget_information;
     GX_WIDGET        *widget;
 } GX_STUDIO_WIDGET_ENTRY;
+
+typedef struct
+{
+    GX_RESOURCE_ID string_id; 
+    GX_RESOURCE_ID font_id;
+    GX_RESOURCE_ID normal_text_color_id;
+    GX_RESOURCE_ID selected_text_color_id;
+    GX_RESOURCE_ID disabled_text_color_id;
+} GX_TEXT_BUTTON_PROPERTIES;
 
 typedef struct
 {
@@ -398,6 +408,7 @@ typedef struct MENU_WINDOW_3_CONTROL_BLOCK_STRUCT
     GX_WINDOW_MEMBERS_DECLARE
     GX_PIXELMAP_BUTTON menu_window_3_map;
     GX_PIXELMAP_BUTTON menu_window_3_settings;
+    GX_TEXT_BUTTON menu_window_3_QR;
 } MENU_WINDOW_3_CONTROL_BLOCK;
 
 typedef struct MENU_WINDOW_2_CONTROL_BLOCK_STRUCT
@@ -408,6 +419,11 @@ typedef struct MENU_WINDOW_2_CONTROL_BLOCK_STRUCT
     GX_PIXELMAP_BUTTON menu_window_2_contacts;
     GX_PIXELMAP_BUTTON menu_window_2_about;
 } MENU_WINDOW_2_CONTROL_BLOCK;
+
+typedef struct QRCODE_CONTROL_BLOCK_STRUCT
+{
+    TEMPLATE_MAIN_CONTROL_BLOCK base;
+} QRCODE_CONTROL_BLOCK;
 
 typedef struct CLOCK_ADD_SCREEN_CONTROL_BLOCK_STRUCT
 {
@@ -630,6 +646,7 @@ typedef struct CALCULATOR_SCREEN_CONTROL_BLOCK_STRUCT
 /* extern statically defined control blocks                                    */
 
 #ifndef GUIX_STUDIO_GENERATED_FILE
+extern QRCODE_CONTROL_BLOCK qrcode;
 extern SETTINGS_LANGUAGE_CONTROL_BLOCK settings_language;
 extern MAP_SCREEN_CONTROL_BLOCK map_screen;
 extern CLOCK_ADD_SCREEN_CONTROL_BLOCK clock_add_screen;
@@ -664,6 +681,8 @@ extern MENU_WINDOW_2_CONTROL_BLOCK menu_window_2;
 
 /* Declare event process functions, draw functions, and callback functions     */
 
+UINT template_main_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
+VOID qr_window_draw(GX_WINDOW *widget);
 UINT settings_language_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT map_screen_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
 VOID map_screen_draw(GX_WINDOW *widget);
@@ -692,7 +711,6 @@ UINT contact_info_edit_screen_event_handler(GX_WINDOW *widget, GX_EVENT *event_p
 UINT contact_info_screen_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT contact_screen_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
 VOID contact_list_row_create(GX_VERTICAL_LIST *, GX_WIDGET *, INT);
-UINT template_main_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
 VOID game_list_row_create(GX_VERTICAL_LIST *, GX_WIDGET *, INT);
 UINT main_screen_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT menu_window_event_handler(GX_WINDOW *widget, GX_EVENT *event_ptr);
@@ -726,6 +744,7 @@ typedef struct GX_STUDIO_DISPLAY_INFO_STRUCT
 
 /* Declare Studio-generated functions for creating top-level widgets           */
 
+UINT gx_studio_text_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_radio_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_pixelmap_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_icon_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);

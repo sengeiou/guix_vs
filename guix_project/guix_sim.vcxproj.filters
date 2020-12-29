@@ -10,6 +10,12 @@
     <Filter Include="adaptor">
       <UniqueIdentifier>{f5afbd0b-afb8-4d9a-b0d5-691a328ca1c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{e0d0083b-6607-480a-9757-0e141b27802b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\qr">
+      <UniqueIdentifier>{21c1d2e9-b176-4309-afad-306aff54a587}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\demo_guix_smart_watch\alarm.c">
@@ -3752,6 +3758,12 @@
     </ClCompile>
     <ClCompile Include="..\lib\adaptor\guix_adaptor.c">
       <Filter>adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\demo_guix_smart_watch\qrcode.c">
+      <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\qrcode\qrcodegen.c">
+      <Filter>lib\qr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

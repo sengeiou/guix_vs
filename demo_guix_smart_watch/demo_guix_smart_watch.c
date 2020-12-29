@@ -203,6 +203,9 @@ static int guix_main(UINT(*drv_setup)(GX_DISPLAY *))
     gx_animation_create(&animation[0]);
     gx_animation_create(&animation[1]);
 
+    /* Create QR window */
+    gx_studio_named_widget_create("qrcode", GX_NULL, GX_NULL);
+
     /* Set root window draw function.  */
     gx_widget_draw_set((GX_WIDGET *)root, root_window_draw);
     gx_widget_event_process_set((GX_WIDGET *)root, root_window_event_handler);
@@ -379,6 +382,9 @@ UINT main_screen_event_handler(GX_WINDOW *window, GX_EVENT *event_ptr)
         break;
     case GX_SIGNAL(ID_SETTINGS, GX_EVENT_CLICKED):
         screen_switch(window->gx_widget_parent, (GX_WIDGET *)&settings_screen);
+        break;
+    case GX_SIGNAL(ID_QR, GX_EVENT_CLICKED):
+        screen_switch(window->gx_widget_parent, (GX_WIDGET*)&qrcode);
         break;
 
     case GX_SIGNAL(ID_BTN_MENU_0, GX_EVENT_RADIO_SELECT):
