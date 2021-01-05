@@ -1,0 +1,22 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x86-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DGUI_DEMO=watch",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x86" ],
+      "variables": [
+        {
+          "name": "CONFIG_GUIX_BINRES",
+          "value": "True",
+          "type": "BOOL"
+        }
+      ]
+    }
+  ]
+}
