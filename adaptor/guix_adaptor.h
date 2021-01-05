@@ -1,6 +1,7 @@
 #ifndef GUIX_SIM_H_
 #define GUIX_SIM_H_
 
+#include "gx_api.h"
 #include "gx_display.h"
 
 #include "guix_resmgr.h"

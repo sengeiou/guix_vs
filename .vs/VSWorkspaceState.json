@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\adaptor",
     "\\demo"
   ],
-  "SelectedNode": "\\demo\\CMakeLists.txt",
+  "SelectedNode": "\\adaptor\\guix_adaptor.c",
   "PreviewInSolutionExplorer": false
 }

@@ -32,6 +32,8 @@ typedef struct
     LONG     type;
 } KEY_INFO_ENTRY;
 
+extern GX_STUDIO_DISPLAY_INFO guix_calculator_display_table[1];
+
 KEY_INFO_ENTRY key_info[] = {
     { "0", 0, 0, ID_CALCULATOR_ZERO, GX_SIGNAL(ID_CALCULATOR_ZERO, GX_EVENT_CLICKED), TYPE_OPERAND },
     { "1", 0, 0, ID_CALCULATOR_ONE, GX_SIGNAL(ID_CALCULATOR_ONE, GX_EVENT_CLICKED), TYPE_OPERAND },
@@ -58,17 +60,13 @@ KEY_INFO_ENTRY key_info[] = {
 };
 
 /* Define prototypes.   */
+
 UINT string_length_get(GX_CONST GX_CHAR* input_string, UINT max_string_length);
-
-/*
-int main(int argc, char ** argv)
-{
-  tx_kernel_enter();
-  return(0);
-}
-
-*/
-
+#ifdef CONFIG_GUIX_BINRES
+GX_PIXELMAP **Main_Screen_default_theme_pixelmap_table;
+GX_CONST GX_THEME* Main_Screen_theme_table[MAIN_SCREEN_THEME_TABLE_SIZE];
+GX_CONST GX_STRING* Main_Screen_language_table[MAIN_SCREEN_LANGUAGE_TABLE_SIZE];
+#endif
 
 /* Custom pixelmap button draw. */
 VOID custom_pixelmap_button_draw(GX_PIXELMAP_BUTTON *key)
@@ -107,10 +105,42 @@ GX_STRING       text;
     }
 }
 
+/*************************************************************************************/
+VOID* memory_allocate(ULONG size)
+{
+    return res_alloc((size_t)size);
+}
+
+/*************************************************************************************/
+VOID memory_free(VOID* mem)
+{
+    res_free(mem);
+}
+
 static int guix_main(UINT(*drv_setup)(GX_DISPLAY*))
 {
     /* Initialize GUIX.  */
     gx_system_initialize();
+
+    /* Assign memory alloc/free functions. */
+    gx_system_memory_allocator_set(memory_allocate, memory_free);
+
+#ifdef CONFIG_GUIX_BINRES
+    GX_THEME* theme;
+    GX_STRING** language;
+    int ret;
+
+    /* Load gui resource */
+    ret = guix_binres_load("guix_binres.bin", 0, &theme, &language);
+    if (ret)
+        return ret;
+
+    Main_Screen_default_theme_pixelmap_table = theme->theme_pixelmap_table;
+    Main_Screen_theme_table[0] = theme;
+    guix_calculator_display_table[0].theme_table = Main_Screen_theme_table;
+    guix_calculator_display_table[0].language_table =
+        (GX_CONST GX_STRING**)language;
+#endif
 
     gx_studio_display_configure(MAIN_SCREEN, drv_setup,
                                 LANGUAGE_ENGLISH, MAIN_SCREEN_DEFAULT_THEME, &root);
