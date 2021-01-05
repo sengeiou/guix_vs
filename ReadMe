@@ -1,3 +1,6 @@
 
-
 git submodule update --init --recursive
+
+mkdir build
+cd build
+cmake -DGUI_DEMO=watch(or simple keyboard calculator) ..

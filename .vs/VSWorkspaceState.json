@@ -1,13 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\demo",
-    "\\lib\\guix",
-    "\\lib\\guix\\common",
-    "\\lib\\guix\\common\\src",
-    "\\lib\\qrcode",
-    "\\out\\build"
+    "\\demo"
   ],
-  "SelectedNode": "\\config.h",
+  "SelectedNode": "\\demo\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }
