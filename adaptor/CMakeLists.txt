@@ -8,6 +8,7 @@ target_sources(adaptor
   PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/guix_adaptor.c
   ${CMAKE_CURRENT_SOURCE_DIR}/guix_resmgr.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/resource_base.c
 )
 
 if (CONFIG_GUIX_BINRES)
