@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "guix_resmgr.h"
 #include "resource_base.h"
@@ -19,6 +20,7 @@ void *res_alloc(size_t size)
 		printf("No more memory\n");
 		return NULL;
 	}
+	memset(ptr, 0, size);
 	return ptr;
 }
 

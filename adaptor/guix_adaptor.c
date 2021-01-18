@@ -332,13 +332,17 @@ static Uint32 guix_os_timer(Uint32 interval, void *param)
 
 static void guix_exit_sync(void)
 {
-    struct guix_os *os = guix_os;
-    GX_EVENT exit = {.gx_event_type = GX_EVENT_TERMINATE, }; 
+    struct guix_os* os = guix_os;
+    GX_EVENT exit = { .gx_event_type = GX_EVENT_TERMINATE, };
     int status;
 
-    gx_generic_event_post(&exit);
-    SDL_WaitThread(os->thread, &status);
-    printf("Thread returned value: %d\n", status);
+    if (os->thread) {
+        gx_generic_event_post(&exit);
+        SDL_WaitThread(os->thread, &status);
+        os->thread = NULL;
+        printf("Thread returned value: %d\n", status);
+    }
+
     if (os->timer) {
         if (!SDL_RemoveTimer(os->timer))
             printf("Error***: Remove timer failed!\n");
