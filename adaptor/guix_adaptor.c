@@ -179,10 +179,10 @@ static UINT guix_driver_setup(GX_DISPLAY* display)
         _gx_display_driver_24xrgb_setup(display, adaptor, guix_draw);
         break;
     default:
-        return GX_FALSE;
+        return GX_FAILURE;
     }
 
-    return GX_TRUE;
+    return GX_SUCCESS;
 }
 
 static void guix_press_event_post(struct gui_input* input,

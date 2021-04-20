@@ -46,6 +46,7 @@ elseif (__win32)
   endif()
 endif()
 
+
 # Set target name
 if (__linux)
   set(EXE_FILE ${PROJECT_NAME}.elf)
@@ -71,6 +72,10 @@ add_library(common_interface INTERFACE )
 
 # Generate executable file
 add_executable(${EXE_FILE} empty.c)
+
+if (__win32) 
+    set_property(TARGET ${EXE_FILE} PROPERTY C_STANDARD 11)
+endif(__win32)
 
 # Add subdirectories
 add_subdirectory(demo)
